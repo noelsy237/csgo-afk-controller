@@ -1,6 +1,7 @@
-import pyautogui
+import time, sched, keyboard
 
-logLocation = "D:\Games\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\console.log"
+scheduler = sched.scheduler(time.time, time.sleep)
+logLocation = "D:\Games\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\consolelog.log"
 
 gunList = {
     "ak": "ak47",
@@ -15,15 +16,23 @@ gunList = {
     "negev": "negev"
 }
 
+requestedDrops = []
+requestedHelp = []
+
 def getDropLine():
         lines = list(open(logLocation, "r", encoding='utf-8'))
-        lastLines = lines[-20:]
+        lastLines = lines[-10:]
         for line in lastLines:
-            if "!drop" in line: 
-                checkGun(line.partition("!drop")[2].strip(), line.partition("!drop")[0][:-2])
+            gun = line.partition("!drop")[2].strip()
+            requester = line.partition("!drop")[0][:-2]
+            if "!drop" in line and requester not in requestedDrops: 
+                checkGun(gun, requester)
                 break
-            elif "!help" in line:
+            elif "!help" in line and requester not in requestedHelp:
                 getHelp()
+                requestedHelp.append(requester)
+
+        print("File Checked")
 
 
 def checkGun(gun, requester):   
@@ -33,25 +42,27 @@ def checkGun(gun, requester):
     
     if dropGun:
         print(f"{gun} was requested by {requester}")
-        pyautogui.write(f"buy {dropGun}")
-        pyautogui.press('enter')
+        keyboard.write(f"buy {dropGun}; drop")
+        keyboard.press_and_release('enter')
+        requestedDrops.append(requester)
     
     else:
         print("Invalid gun selection")
-        pyautogui.write(f"say Invalid gun selection. Try !help")
-        pyautogui.press('enter')
+        keyboard.write(f"say Invalid gun selection. Try !help")
+        keyboard.press('enter')
 
 
 def getHelp():
-    pyautogui.write("say Usage: !drop gun")
-    pyautogui.press('enter')
-    pyautogui.write("say Available guns to drop are:")
-    pyautogui.press('enter')
+    keyboard.write("say Usage: '!' followed by 'drop gun' (one per player); say Available guns to drop are:")
+    keyboard.press('enter')
     gunString = ""
     for key in gunList:
         gunString += ", " + key
-        
-    pyautogui.write(f"say {gunString}")
-    pyautogui.press('enter')
+    keyboard.write(f"say {gunString}")
+    keyboard.press('enter')
 
-getDropLine()
+
+print("AFK Controller Initialised")
+while True:
+    e1 = scheduler.enter(1, 1, getDropLine)
+    scheduler.run()

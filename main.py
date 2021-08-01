@@ -49,7 +49,7 @@ def checkGun(gun, player):
     if gun in gunList:
         dropGun = gunList[gun]
     
-    elif gun == "bomb" or "c4" and bombDropped == False:
+    elif gun == "bomb" or "c4" and bombDropped is False:
         print(f"The bomb was dropped by {player}")
         bombDropped = True
         keyboard.write(f"use weapon_c4;drop")

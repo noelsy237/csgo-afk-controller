@@ -17,6 +17,7 @@ gunList = {
     "mp9": "mp9",
     "p90": "p90",
     "ssg": "ssg08",
+    "awp": "awp",
     "xm": "xm1014",
     "negev": "negev"
 }

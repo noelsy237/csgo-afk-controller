@@ -1,6 +1,6 @@
 import time, sched, keyboard
 
-logLocation = "D:\Games\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\consolelog.log"
+logLocation = "D:\Games\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\console.log"
 
 scheduler = sched.scheduler(time.time, time.sleep)
 requestedDrops = []

@@ -6,6 +6,7 @@ scheduler = sched.scheduler(time.time, time.sleep)
 requestedDrops = []
 requestedHelp = []
 bombDropped = False
+currentlyActive = True
 currentSeconds = 0
 gunList = {
     "ak": "ak47",
@@ -45,7 +46,7 @@ def getDropLine():
 
 
 def checkGun(gun, player):   
-    global bombDropped
+    global bombDropped, currentlyActive
     dropGun = None
     if gun in gunList:
         dropGun = gunList[gun]
@@ -55,6 +56,12 @@ def checkGun(gun, player):
         bombDropped = True
         keyboard.write(f"use weapon_c4;drop")
         keyboard.press_and_release('enter')
+
+    elif gun == "kill":
+        currentlyActive = False
+        keyboard.write(f"joinclass")
+        keyboard.press_and_release('enter')
+        print(f"You were {gun}ed by {player}")
     
     if dropGun:
         print(f"{gun} was requested by {player}")
@@ -79,6 +86,7 @@ def resetRoundChecks():
     requestedDrops.clear()
     requestedHelp.clear()
     bombDropped = False
+    currentlyActive = True
     
 
 print("AFK Controller Initialised. Make sure to tab into the game and open the console.")

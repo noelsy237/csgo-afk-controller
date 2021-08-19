@@ -2,18 +2,11 @@
 A script to handle auto gun drops amongst other things
 
 ## Usage
-1. Install Python 3 from https://www.python.org/downloads/
-2. Enter this command `con_logfile "console.log"` into either your console each time or into autoexec. 
-3. Edit the logLocation variable to match your current csgo installation directory. (Right click the .py file -> Edit with idle)
-Example = `D:\Games\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\console.log`
-4. When you need to be afk, run the script and open the console in game. (Must be tabbed into the game)
-
-
-## Usage for auto accept controller
-1. Make the virtual environment `python -m venv venv`.
-2. Activate it `source venv/bin/activate`.
-3. Double click the .py file to run it.
-
+1. Download the latest release.
+2. Place the exe file into your csgo directory. `\steamapps\common\Counter-Strike Global Offensive\csgo`
+3. Enter this command `con_logfile "console.log"` into either your console each time or into autoexec. (Restart CSGO after running the command)
+4. Run the exe and follow the options
 
 ## Notes
+Both scripts require you to be tabbed into the game.
 You should probably delete the console.log file occasionally as it can get to a large size.

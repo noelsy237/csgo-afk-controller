@@ -1,5 +1,6 @@
 # csgo-afk-controller
-A script to handle auto gun drops amongst other things
+A script to handle auto gun and bomb drops, as well as auto-kill. 
+Auto-accept has also been added.
 
 ## Usage
 1. Download the latest release.
